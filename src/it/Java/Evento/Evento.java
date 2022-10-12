@@ -1,5 +1,4 @@
 package it.Java.Evento;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -9,13 +8,13 @@ public class Evento {
     String titolo;
     LocalDate data;
     int numPosti;
-    int numPostiPren = 0;
+    int numPostiPren, numPostiElim = 0;
 
     LocalDate now = LocalDate.now();
 
     public Evento(String titolo, LocalDate data, int numPosti) throws Exception {
         this.titolo = titolo;
-        if (data.isBefore(now))
+        if (data.isAfter(now))
             this.data = data;
         else
             throw new Exception();
@@ -47,23 +46,26 @@ public class Evento {
         this.data = data;
     }
 
-    public int prenotaPosto() throws Exception {
-        if (numPostiPren < numPosti) {
-            return this.numPostiPren++;
+    public int prenotaPosto(int posti) throws Exception {
+        if (this.numPosti >= posti) {
+            this.numPosti = this.numPosti - posti;
+            this.numPostiPren = this.numPostiPren + posti;
+            return numPostiPren;
         } else {
             throw new Exception();
         }
     }
 
-    public int riduciPosto() throws Exception {
-        if (this.numPostiPren > 0) {
-            return numPosti = this.numPostiPren - 1;
-        } else if (this.data.isBefore(now)) {
-            throw new Exception();
+    public int riduciPosto(int posti) throws Exception {
+        if (this.numPostiPren >= posti) {
+            this.numPostiPren = this.numPostiPren - posti;
+            this.numPostiElim = this.numPostiElim + posti;
+            return numPostiElim;
         } else {
             throw new Exception();
         }
     }
+
 
 
     @Override
