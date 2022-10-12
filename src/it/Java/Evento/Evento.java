@@ -66,7 +66,9 @@ public class Evento {
         }
     }
 
-
+    public Evento() {
+        super();
+    }
 
     @Override
     public String toString() {
