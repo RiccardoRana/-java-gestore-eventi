@@ -3,6 +3,7 @@ package it.Java.Evento;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ProgrammEventi {
 
@@ -11,22 +12,23 @@ public class ProgrammEventi {
 
     public ProgrammEventi(String titolo) {
         this.titolo = titolo;
-        this.eventi = new ArrayList<>();
+        this.eventi = new ArrayList<Evento>();
     }
 
     public void aggiungiEvento(Evento evento) {
         this.eventi.add(evento);
     }
 
-    public Evento ritornaEventiData(LocalDate data) throws Exception {
+    public void ritornaEventiData(LocalDate data) throws Exception {
         ArrayList<Evento> eventiData = new ArrayList<Evento>();
-        for (Evento evento : eventi) {
-            if (ChronoUnit.DAYS.between(data, evento.data) == 0) {
-                return evento;
+        Iterator<Evento> iterator = eventiData.iterator();
+        while (iterator.hasNext()) {
+            Evento eventOne = iterator.next();
+            if (ChronoUnit.DAYS.between(data, eventOne.data) == 0) {
+                eventiData.add(eventOne);
             }
-
         }
-        return null;
+        System.out.println(eventiData);
     }
 
     public int numEventiProg() {
@@ -34,15 +36,24 @@ public class ProgrammEventi {
     }
 
     public void svuotaLista() {
-
         this.eventi.clear();
     }
 
-    public String ritornaStringa() {
-        for (Evento evento : eventi) {
-            return "" + this.titolo + ": " + evento.data + ", " + evento.titolo + "";
+    public void ritornaStringa() {
+        Iterator<Evento> iterator = this.eventi.iterator();
+        for (Evento evento: this.eventi) {
+            String stringa = "" + this.titolo + ": " + evento.data + ", " + evento.titolo + "";
+            System.out.println(stringa);
 
         }
+
+    }
+}
+
+
+
+
+
 
 
 
