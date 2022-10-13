@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ProgrammEventi {
+public class ProgrammEventi implements Comparable<Evento> {
 
     private String titolo;
     private ArrayList<Evento> eventi;
@@ -40,15 +40,39 @@ public class ProgrammEventi {
     }
 
     public void ritornaStringa() {
-        Iterator<Evento> iterator = this.eventi.iterator();
-        for (Evento evento: this.eventi) {
+        for (Evento evento : this.eventi) {
             String stringa = "" + this.titolo + ": " + evento.data + ", " + evento.titolo + "";
             System.out.println(stringa);
 
         }
 
     }
+
+    public void salvaEvento(String filePath) {
+
+    }
+
+    @Override
+    public int compareTo(Evento o) {
+        ArrayList<Evento> eventiCopia = this.eventi;
+        for (Evento evento : eventiCopia) {
+            if (evento.data.isBefore(o.data)) {
+                return 1;
+            } else if (evento.data.isAfter(o.data)) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+        return 0;
+
+
+    }
 }
+
+
+
+
 
 
 

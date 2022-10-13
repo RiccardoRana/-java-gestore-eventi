@@ -11,17 +11,16 @@ public class Concerto extends Evento {
 
     DecimalFormat decimalTwo = new DecimalFormat("##,##€");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm:ss");
+    DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     BigDecimal prezzo;
     LocalTime ora;
 
-    public Concerto(String titolo, LocalDate data, int numPosti) throws Exception {
+    public Concerto(String titolo, LocalDate data, int numPosti, BigDecimal prezzo, LocalTime ora) throws Exception {
         super(titolo, data, numPosti);
-    }
-
-    public Concerto(BigDecimal prezzo, LocalTime ora) {
         this.prezzo = prezzo;
         this.ora = ora;
     }
+
 
     public BigDecimal getPrezzo() {
         return prezzo;
@@ -41,7 +40,7 @@ public class Concerto extends Evento {
 
     @Override
     public String toString() {
-        return "" + decimalTwo.format(prezzo) + "";
+        return " Data: "+df.format(this.data)+" , " + decimalTwo.format(this.prezzo) + " "+dtf.format(this.ora)+"";
     }
 }
 
